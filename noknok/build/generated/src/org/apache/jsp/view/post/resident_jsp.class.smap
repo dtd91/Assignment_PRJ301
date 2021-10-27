@@ -1,0 +1,10 @@
+SMAP
+resident_jsp.java
+JSP
+*S JSP
+*F
++ 0 resident.jsp
+view/post/resident.jsp
+*L
+1,1740:44
+*E
