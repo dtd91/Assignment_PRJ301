@@ -82,3 +82,11 @@ h5 {
 
 }
 
+.news_thumb img{
+    width: 100px;
+    height: 100px;
+}
+
+.panel-body h2{
+    font-size: 30px;
+}

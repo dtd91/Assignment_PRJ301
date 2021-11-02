@@ -35,12 +35,10 @@ public class LoginController extends HttpServlet {
         AccountDBContext db = new AccountDBContext();
         Account account = db.getAccount(username, password);
         request.getSession().setAttribute("account", account);
-
         if (account == null) {
             request.setAttribute("mess", new String("Error"));
             request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
         } else {
-            
             response.sendRedirect("home");
         }
     }

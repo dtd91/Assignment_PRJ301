@@ -12,10 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/content.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <title>Header</title>
         <style>
-
-
             .bg-black {
                 background-color: #000
             }
@@ -36,7 +39,7 @@
             }
 
             .nav-item {
-                padding: 6px 14px;
+                padding: 6px 8px;
                 text-align: center
             }
 
@@ -69,6 +72,10 @@
                 margin-left: 5px;
                 margin-right: 10px;
             }
+            .navbar-nav li:hover{
+                background-color: #666666;
+            }
+
         </style>
     </head>
     <body>
@@ -78,19 +85,38 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active"> <a class="nav-link" href="home">Trang chủ</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="#">Blog</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="resident">Ở ghép</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="broadinghouse">Cho thuê phòng trọ</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="apartment">Cho thuê căn hộ</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="house">Nhà nguyên căn</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="resident">Tìm người ở ghép</a> </li>
                         <li class="nav-item"> <a class="nav-link" href="insert">Đăng Phòng</a> </li>
-                            <c:if test="${sessionScope.account!=null && sessionScope.account.role == 'admin'}" >
-                            <li class="nav-item"> <a class="nav-link" href="list">Danh Sách</a> </li>
-                            </c:if>
+
                     </ul>
+
                     <c:if test="${sessionScope.account==null}" >
                         <a class="btn btn-primary" href="signup" role="button">Đăng ký</a>
                         <a class="btn btn-secondary" id="login" href="login" role="button">Đăng nhập</a>
                     </c:if>
+
                     <c:if test="${sessionScope.account!=null}" >
-                        <a class="nav-link" href="#">${sessionScope.account.username}(${sessionScope.account.role})</a>
+
+                        <div class="" style="margin-right: 5px">
+                            <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                    ${sessionScope.account.username}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="mypost">Xem tin đã đăng</a>
+                                    <a class="dropdown-item" href="#">Xem thông tin</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <c:if test="${sessionScope.account!=null && sessionScope.account.role == 'admin'}" >
+                            <a class="btn btn-warning" href="list" role="button">Quản lý</a>
+                        </c:if>
                         <a class="btn btn-secondary" id="login" href="logout" role="button">Log out</a>
                     </c:if>
                 </div>

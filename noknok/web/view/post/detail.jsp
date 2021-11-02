@@ -21,7 +21,13 @@
         <div class="container mt-5 mb-5">
             <div class="d-flex justify-content-center row">
                 <div class="col-md-10">
-                    <img src="img/2.jpg" alt=""/>
+                    <div class="text-center" style="width: 1100px;background-color: #999999;">
+                    <img src="${images[0].url}" width="800px" alt=""/>
+                    <c:if test="${images[0].url eq null}">
+                        <img src="img/0.jpg" width="500px" alt=""/>
+                    </c:if>
+                    </div>
+                    
                     <h1 class="post-title-lg title-lg-vip5">
                         ${requestScope.post.title}
                     </h1>

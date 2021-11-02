@@ -31,13 +31,15 @@ public class InsertController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         PostDBContext pd = new PostDBContext();
         ArrayList<District> dicts = pd.getDists();
         request.setAttribute("dicts", dicts);
 
         ArrayList<Province> pros = pd.getPros();
         request.setAttribute("pros", pros);
-        
+
         ArrayList<Ward> wards = pd.getWards();
         request.setAttribute("wards", wards);
         request.getRequestDispatcher("view/post/insert.jsp").forward(request, response);
@@ -54,6 +56,8 @@ public class InsertController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         String title = request.getParameter("Title");
         int category = Integer.parseInt(request.getParameter("CategoryId"));
         float area = Float.parseFloat(request.getParameter("Area"));
@@ -67,6 +71,8 @@ public class InsertController extends HttpServlet {
         String contactEmail = request.getParameter("ContactEmail");
         String contactAddress = request.getParameter("ContactAddress");
         String description = request.getParameter("Detail");
+        String img = request.getParameter("img");
+
         Post p = new Post();
         p.setTitle(title);
         p.setCategoryId(category);
@@ -83,8 +89,9 @@ public class InsertController extends HttpServlet {
         p.setDescription(description);
         PostDBContext pd = new PostDBContext();
         pd.insertPost(p);
-        
-        
+
+        int lastPostId = pd.getLastPostId();
+        pd.insertImg(lastPostId, "img/" + img);
     }
 
     /**

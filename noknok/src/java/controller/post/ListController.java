@@ -14,6 +14,7 @@ import model.Post;
 import model.Province;
 import model.Ward;
 
+
 /**
  *
  * @author PC
@@ -35,7 +36,7 @@ public class ListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PostDBContext pd = new PostDBContext();
-        ArrayList<Post> posts = pd.getPosts();
+        ArrayList<Post> posts = pd.getAllPosts();
         request.setAttribute("posts", posts);
         
         ArrayList<Category> categories = pd.getCategories();
@@ -49,6 +50,11 @@ public class ListController extends HttpServlet {
         
         ArrayList<Ward> wards = pd.getWards();
         request.setAttribute("wards", wards);
+        
+        boolean t = Boolean.valueOf(request.getParameter("t"));
+        request.setAttribute("t", t);
+        
+        
         request.getRequestDispatcher("view/post/list.jsp").forward(request, response);
     }
 

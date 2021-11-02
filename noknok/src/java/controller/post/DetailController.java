@@ -37,7 +37,7 @@ public class DetailController extends HttpServlet {
 //        response.getWriter().print(post.getDescription());
         request.setAttribute("post", post);
         
-        ArrayList<Image> images = rd.getImg();
+        ArrayList<Image> images = rd.getImg(id);
         request.setAttribute("images", images);
         request.getRequestDispatcher("/view/post/detail.jsp").forward(request, response);
 

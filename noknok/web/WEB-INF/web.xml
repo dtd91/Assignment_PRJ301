@@ -40,6 +40,22 @@
         <servlet-name>SearchAdvanceController</servlet-name>
         <servlet-class>controller.post.SearchAdvanceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BroadingHouseController</servlet-name>
+        <servlet-class>controller.post.BroadingHouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApartmentController</servlet-name>
+        <servlet-class>controller.post.ApartmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HouseController</servlet-name>
+        <servlet-class>controller.post.HouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyPostController</servlet-name>
+        <servlet-class>controller.post.MyPostController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,6 +95,22 @@
     <servlet-mapping>
         <servlet-name>SearchAdvanceController</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BroadingHouseController</servlet-name>
+        <url-pattern>/broadinghouse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApartmentController</servlet-name>
+        <url-pattern>/apartment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HouseController</servlet-name>
+        <url-pattern>/house</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyPostController</servlet-name>
+        <url-pattern>/mypost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
