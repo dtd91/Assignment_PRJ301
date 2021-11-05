@@ -498,4 +498,17 @@ public class PostDBContext extends DBContext {
         }
         return posts;
     }
+
+    public void approve(int id) {
+        try {
+            String sql = "UPDATE [noknok].[dbo].[Post]\n"
+                    + "   SET [status] = 'true'\n"
+                    + " WHERE id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

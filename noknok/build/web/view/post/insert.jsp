@@ -224,12 +224,20 @@
 
 
                     <div class="col-sm-12 text-center">
-                        <input type="submit" class="btn btn-primary" value="ĐĂNG TIN">
+                        <input type="submit" class="btn btn-primary" onclick="check()" value="ĐĂNG TIN">
                     </div>
                 </form>            
             </div>
         </div>
         <%@include file="footer.jsp" %>
-
+        <script>
+            function check(){
+                var c = confirm("Add Successfully! Wanna go to the pagehome?");
+                if (c)
+                {
+                    window.location.href = "home";
+                }
+            }
+        </script>
     </body>
 </html>

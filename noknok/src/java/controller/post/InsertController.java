@@ -92,6 +92,7 @@ public class InsertController extends HttpServlet {
 
         int lastPostId = pd.getLastPostId();
         pd.insertImg(lastPostId, "img/" + img);
+        
     }
 
     /**

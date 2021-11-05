@@ -63,7 +63,7 @@ public class SearchAdvanceController extends HttpServlet {
         int pageName = Integer.parseInt(request.getParameter("pageName"));
         switch (pageName) {
             case 0:
-                request.getRequestDispatcher("/view/post/house.jsp").forward(request, response);
+                request.getRequestDispatcher("/view/post/home.jsp").forward(request, response);
                 break;
             case 1:
                 request.getRequestDispatcher("/view/post/broadinghouse.jsp").forward(request, response);

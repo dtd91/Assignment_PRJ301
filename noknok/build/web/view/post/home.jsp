@@ -113,17 +113,17 @@
                         </h3>
                         <ul class="list_news_recent" style="list-style: none;">
                             <li class="news_item clearfix">
-                                <a href="/tin-tuc/nha-thue-tp.hcm-giam-gia-2-3-trieu-dong-thang-p28131.html">
+                                <a href="/tin-tuc/nha-thue-tp.hcm-giam-gia-2-3-trieu-dong-thang-p28131.html" style="text-decoration: none;">
                                     <div class="news_thumb">
                                         <img class="lazyload" src="https://img.thuephongtro.com/images/uploads/20200531080439-2fupv.jpg" data-src="https://img.thuephongtro.com/images/uploads/20200531080439-2fupv.jpg" data-loaded="true">
                                     </div>
                                     <div class="news_info">
-                                        <div class="news_item_title">Nhà thuê TP.HCM giảm giá 2-3 triệu đồng/tháng</div>
+                                        <div class="news_item_title" >Nhà thuê TP.HCM giảm giá 2-3 triệu đồng/tháng</div>
                                     </div>
                                 </a>
                             </li>
                             <li class="news_item clearfix">
-                                <a href="/tin-tuc/top-10-website-dang-tin-cho-thue-phong-tro-nha-tro-hieu-qua-nhat-2020-p28130.html">
+                                <a href="/tin-tuc/top-10-website-dang-tin-cho-thue-phong-tro-nha-tro-hieu-qua-nhat-2020-p28130.html" style="text-decoration: none;">
                                     <div class="news_thumb">
                                         <img class="lazyload" src="https://img.thuephongtro.com/images/uploads/20200309135926-xinj2.jpg" data-src="https://img.thuephongtro.com/images/uploads/20200309135926-xinj2.jpg" data-loaded="true">
                                     </div>
@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="news_item clearfix">
-                                <a href="/tin-tuc/chu-nha-co-phai-chiu-trach-nhiem-khi-nguoi-thue-phong-tro-su-dung-chat-ma-tuy-khong-p28126.html">
+                                <a href="/tin-tuc/chu-nha-co-phai-chiu-trach-nhiem-khi-nguoi-thue-phong-tro-su-dung-chat-ma-tuy-khong-p28126.html" style="text-decoration: none;">
                                     <div class="news_thumb">
                                         <img class="lazyload" src="https://img.thuephongtro.com/images/uploads/20200309131415-dvtub.jpg" data-src="https://img.thuephongtro.com/images/uploads/20200309131415-dvtub.jpg" data-loaded="true">
                                     </div>
@@ -143,7 +143,7 @@
                                 </a>
                             </li>
                             <li class="news_item clearfix">
-                                <a href="/tin-tuc/mau-noi-quy-cho-thue-phong-tro-nha-tro-moi-nhat-2020-p28125.html">
+                                <a href="/tin-tuc/mau-noi-quy-cho-thue-phong-tro-nha-tro-moi-nhat-2020-p28125.html" style="text-decoration: none;">
                                     <div class="news_thumb">
                                         <img class="lazyload" src="https://img.thuephongtro.com/images/uploads/20200309125312-o0ty2.jpg" data-src="https://img.thuephongtro.com/images/uploads/20200309125312-o0ty2.jpg" data-loaded="true">
                                     </div>
@@ -153,7 +153,7 @@
                                 </a>
                             </li>
                             <li class="news_item clearfix">
-                                <a href="/tin-tuc/bo-cong-thuong-de-xuat-gia-dien-sinh-hoat-5-bac-p28124.html">
+                                <a href="/tin-tuc/bo-cong-thuong-de-xuat-gia-dien-sinh-hoat-5-bac-p28124.html" style="text-decoration: none;"> 
                                     <div class="news_thumb">
                                         <img class="lazyload" src="https://img.thuephongtro.com/images/uploads/20200309121311-d4ek3.jpg" data-src="https://img.thuephongtro.com/images/uploads/20200309121311-d4ek3.jpg" data-loaded="true">
                                     </div>

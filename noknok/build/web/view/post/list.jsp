@@ -4,6 +4,7 @@
     Author     : PC
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,18 +13,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <script>
-        function upLoad(id)
-        {
-            window.location.href = "update?id=" + id;
+    <style>
+        .img-responsive{
+            width: 80px;
+            height: 95px;
         }
-        function doDelete(id)
-        {
-            var c = confirm("are you sure?");
-            if (c)
-            {
+    </style>
+    <script>
+        function doDelete(id){
+            var c = confirm("Are you sure?");
+            if (c){
                 window.location.href = "delete?id=" + id;
             }
+        }
+        function approved(id){
+                alert("Approved successfully!");
+                window.location.href = "approve?id=" + id;
         }
 
     </script>
@@ -35,17 +40,17 @@
                 <div class="row">
                     <ul class="nav nav-tabs  justify-content-center">
                         <li class="nav-item" id="cate">
-                            <a class="nav-link ${requestScope.t ne true ?"active":""}" href="list">Chờ duyệt</a>
+                            <a class="nav-link ${requestScope.t ne true ?"active":""}" style="color: black;font-weight: bold;" href="list">Chờ duyệt</a>
                         </li>
                         <li class="nav-item" id="cate">
-                            <a class="nav-link ${requestScope.t eq true ?"active":""}" href="list?t=true">Tất cả</a>
+                            <a class="nav-link ${requestScope.t eq true ?"active":""}" style="color: black;font-weight: bold;" href="list?t=true">Đã duyệt</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!--<h1>Danh sách cho thuê nhà</h1>-->
+<!--        <h1>Danh sách cho thuê nhà</h1>
         <table border = "2">
             <thead>
                 <tr>
@@ -59,9 +64,9 @@
                     <th>Price</th>
                     <th>Status</th>
                     <th>Category</th>
-                    <!--                <td>ContactName</td>
+                                    <td>ContactName</td>
                                     <td>ContactPhone</td>
-                                    <td>ContactEmail</td>-->
+                                    <td>ContactEmail</td>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -96,9 +101,9 @@
                                 <c:if test="${p.categoryId eq c.categoryid }">${c.cname}</c:if>
                             </c:forEach>
                         </td>
-                        <!--<td>${p.contactName}</td>-->
-                        <!--<td>${p.contactPhone}</td>-->
-                        <!--<td>${p.contactEmail}</td>-->
+                        <td>${p.contactName}</td>
+                        <td>${p.contactPhone}</td>
+                        <td>${p.contactEmail}</td>
                         <td>
                             <c:if test="${p.status eq false}">
                                 Pending
@@ -117,7 +122,73 @@
                     </tr>
                 </c:if>
             </c:forEach>
-        </table>
+        </table>-->
+
+        <!--//////////////////////////////////-->
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10 table-responsive" >
+                <table class="table table-striped text-center" style="border: 1px solid black">
+                    <thead>
+                        <tr class="">
+                            <th scope="col">ID</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">District</th>
+                            <th scope="col">Province</th>
+                            <th scope="col">Area</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Status</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${requestScope.posts}" var="p">
+                            <c:if test="${p.status eq t}">
+                                <tr>
+                                    <td>${p.id}</td>
+                                    <td><c:set var="count" value="0" scope="page" />
+                                        <c:forEach items="${images}" var="i">
+                                            <c:if test="${i.id eq p.id && count eq 0}">
+                                                <img class="img-responsive" src="${i.url}" />
+                                                <c:set var="count" value="1" scope="page" />
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td class="text-left"><a href="detail?id=${p.id}" style="text-decoration: none;color: black">${p.title}</a></td>
+                                    <td><c:forEach items="${dists}" var="d">
+                                            <c:if test="${d.id eq p.districtId}">${d.name}</c:if>
+                                        </c:forEach></td>
+                                    <td><c:forEach items="${pros}" var="pro">
+                                            <c:if test="${pro.id eq p.provinceId}">${pro.name}</c:if>
+                                        </c:forEach></td>
+                                    <td><fmt:formatNumber type="number" maxFractionDigits="6" value="${p.area}"/></td>
+                                    <td><c:choose>
+                                            <c:when test = "${p.categoryId eq 1}">Cho thuê phòng trọ</c:when>
+                                            <c:when test = "${p.categoryId eq 2}">Cho thuê căn hộ</c:when>
+                                            <c:when test = "${p.categoryId eq 3}">Nhà nguyên căn</c:when>
+                                            <c:when test = "${p.categoryId eq 4}">Tìm người ở ghép</c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose></td>
+                                    <td><c:choose>
+                                            <c:when test = "${p.status eq true}">Approved <img src="img/approved.jpg" width="20px" alt=""/></c:when>
+                                            <c:when test = "${p.status eq false}">Pending...<img src="img/pending.jpg" width="20px" alt=""/> </c:when>
+
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose></td>
+                                        
+                                    <td class="text-right"><a href="#"><c:if test="${p.status eq false}"><button class="btn btn-sm btn-success" onclick="approved(${p.id})">Approved </button> </c:if></a></td>
+                                    
+                                    <td class="text-right"><a href="#"><button class="btn btn-sm btn-danger" onclick="doDelete(${p.id})">Xóa tin </button> </a></td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         <%@include file="footer.jsp" %>
 
     </body>
