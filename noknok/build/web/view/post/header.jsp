@@ -84,12 +84,12 @@
                 <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item active"> <a class="nav-link" href="home">Trang chủ</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="broadinghouse">Cho thuê phòng trọ</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="apartment">Cho thuê căn hộ</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="house">Nhà nguyên căn</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="resident">Tìm người ở ghép</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="insert">Đăng Phòng</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/home'}"> active</c:if>"> <a class="nav-link" href="home">Trang chủ</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/broadinghouse'}"> active</c:if> "> <a class="nav-link" href="broadinghouse">Cho thuê phòng trọ</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/apartment'}"> active</c:if>"> <a class="nav-link" href="apartment">Cho thuê căn hộ</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/house'}"> active</c:if>"> <a class="nav-link" href="house">Nhà nguyên căn</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/resident'}"> active</c:if>"> <a class="nav-link" href="resident">Tìm người ở ghép</a> </li>
+                        <li class="nav-item <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/noknok/insert'}"> active</c:if>"> <a class="nav-link" href="insert">Đăng Phòng</a> </li>
 
                     </ul>
 

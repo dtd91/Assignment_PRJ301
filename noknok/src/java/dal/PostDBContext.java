@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.resource.spi.DissociatableManagedConnection;
 import model.Category;
 import model.District;
+import model.GoogleMap;
 import model.Image;
 import model.Post;
 import model.Province;
@@ -93,9 +94,9 @@ public class PostDBContext extends DBContext {
         try {
             String sql = "select * from \n"
                     + "(select ROW_NUMBER() OVER (ORDER BY id asc) as rownum,p.* from Post p where status = 1 ";
-            if (caretogyid !=0) {
-                sql +="and categoryid = "+caretogyid+") t where rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
-            }else{
+            if (caretogyid != 0) {
+                sql += "and categoryid = " + caretogyid + ") t where rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+            } else {
                 sql += ") t where rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
             }
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -196,38 +197,50 @@ public class PostDBContext extends DBContext {
     }
 
     public Post getPost(int id) {
-        Post r = new Post();
         try {
             String sql = "select po.id,title,description,address,w.wardid,d.districtid,p.provinceid, area,price,\n"
-                    + "status,c.categoryid,po.contactname,po.contactphone,po.contactemail,po.contactaddress  from Post po\n"
+                    + "status,c.categoryid,po.contactname,po.contactphone,po.contactemail,po.contactaddress,url  from Post po\n"
                     + "inner join Category c on c.categoryid = po.categoryid\n"
                     + "inner join ward w on w.wardid = po.wardid\n"
                     + "inner join district d on d.districtid = w.districtid\n"
-                    + "inner join province p on p.provinceid = d.provinceid  where po.id = ?";
+                    + "inner join province p on p.provinceid = d.provinceid  \n"
+                    + "inner join Image i on i.postid = po.id\n"
+                    + "where po.id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                r.setId(rs.getInt("id"));
-                r.setTitle(rs.getString("title"));
-                r.setDescription(rs.getString("description"));
-                r.setAddress(rs.getString("address"));
-                r.setWardId(rs.getInt("wardid"));
-                r.setDistrictId(rs.getInt("districtid"));
-                r.setProvinceId(rs.getInt("provinceid"));
-                r.setArea(rs.getFloat("area"));
-                r.setPrice(rs.getFloat("price"));
-                r.setStatus(rs.getBoolean("status"));
-                r.setCategoryId(rs.getInt("categoryid"));
-                r.setContactName(rs.getString("contactname"));
-                r.setContactPhone(rs.getInt("contactphone"));
-                r.setContactEmail(rs.getString("contactemail"));
-                r.setContactAddress(rs.getString("contactaddress"));
+            Post r = null;
+            ArrayList<Image> images = new ArrayList<>();
+            while (rs.next()) {
+                if (r == null) {
+                    r = new Post();
+                    r.setId(rs.getInt("id"));
+                    r.setTitle(rs.getString("title"));
+                    r.setDescription(rs.getString("description"));
+                    r.setAddress(rs.getString("address"));
+                    r.setWardId(rs.getInt("wardid"));
+                    r.setDistrictId(rs.getInt("districtid"));
+                    r.setProvinceId(rs.getInt("provinceid"));
+                    r.setArea(rs.getFloat("area"));
+                    r.setPrice(rs.getFloat("price"));
+                    r.setStatus(rs.getBoolean("status"));
+                    r.setCategoryId(rs.getInt("categoryid"));
+                    r.setContactName(rs.getString("contactname"));
+                    r.setContactPhone(rs.getInt("contactphone"));
+                    r.setContactEmail(rs.getString("contactemail"));
+                    r.setContactAddress(rs.getString("contactaddress"));
+                }
+                Image i = new Image();
+                i.setId(rs.getInt("id"));
+                i.setUrl(rs.getString("url"));
+                images.add(i);
             }
+            r.setImage(images);
+            return r;
         } catch (SQLException ex) {
             Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return r;
+        return null;
     }
 
     public void insertPost(Post p) {
@@ -598,5 +611,25 @@ public class PostDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public GoogleMap getMap(int pid) {
+        try {
+            String sql = "SELECT [pid]\n"
+                    + "      ,[map]\n"
+                    + "  FROM [GoogleMap] where pid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                GoogleMap c = new GoogleMap();
+                c.setPid(pid);
+                c.setMap(rs.getString("map"));
+                return c;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

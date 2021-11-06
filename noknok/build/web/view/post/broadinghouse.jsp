@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>NokNok</title>
+        <title>Cho thuê phòng trọ</title>
         <link href="css/content.css" rel="stylesheet" type="text/css"/>
 
     </head>

@@ -25,6 +25,7 @@
     </script>
     <body>
         <%@include file="header.jsp" %>
+        
         <div class="container">
             <img style="width: 100%;" src="img/banner3.jpg" alt=""/>
             <div class="center" style="color: white;"><h1>Tìm kiếm nhà trọ có noknok</h1></div>

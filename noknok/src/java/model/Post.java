@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,6 +24,15 @@ public class Post {
     private int contactPhone;
     private String contactEmail;
     private String contactAddress;
+    private ArrayList<Image> image;
+
+    public ArrayList<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(ArrayList<Image> image) {
+        this.image = image;
+    }
 
     public String getContactName() {
         return contactName;

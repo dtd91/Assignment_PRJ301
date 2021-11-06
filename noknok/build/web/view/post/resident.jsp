@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Resident</title>
+        <title>Tìm Người Ở Ghép</title>
         <link href="css/content.css" rel="stylesheet" type="text/css"/>
 
     </head>

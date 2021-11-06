@@ -20,7 +20,6 @@ import model.Ward;
  */
 public class InsertController extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +36,6 @@ public class InsertController extends HttpServlet {
         request.setAttribute("wards", wards);
         request.getRequestDispatcher("view/post/insert.jsp").forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,15 +73,19 @@ public class InsertController extends HttpServlet {
         p.setDescription(description);
         PostDBContext pd = new PostDBContext();
         pd.insertPost(p);
-        
+
         Account acc = (Account) request.getSession().getAttribute("account");
         pd.insertPostAccount(acc.getUsername(), pd.getLastPostId());
-
         int lastPostId = pd.getLastPostId();
-        pd.insertImg(lastPostId, "img/" + img);
-        
+
+        if (img.isEmpty()) {
+            pd.insertImg(lastPostId, "img/0.jpg");
+        } else {
+            pd.insertImg(lastPostId, "img/" + img);
+        }
+
         response.sendRedirect("mypost");
-        
+
     }
 
     /**

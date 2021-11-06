@@ -44,10 +44,10 @@
         <%@include file="header.jsp" %><br><br>
 
         <div class="d-flex justify-content-center row">
-            <div class="col-md-10 table-responsive" >
+            <div class="col-md-8 table-responsive" >
                 <div class="container bootstrap snippet">
                     <div class="row">
-                        <div class="text-center col-md-3"><h3>Xin chào, User name</h3></div><br>
+                        
                         <div class="col-md-2"><a href="/users" class="pull-right"></a></div>
                     </div>
                     <div class="row">
@@ -68,41 +68,37 @@
                         <div class="col-md-8">
                             <form action="##" method="post" id="registrationForm">
 
-                                <div class="col-md-12" style="display: flex;">
                                     <div class="col-md-6">
-                                        <label for="first_name"><h4>First name</h4></label>
+                                        <h4>First name</h4>
                                         <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="last_name"><h4>Last name</h4></label>
+                                        <h4>Last name</h4>
                                         <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
                                     </div>
-                                </div><br>
 
-                                <div class="col-md-12" style="display: flex;">
                                     <div class="col-md-6">
-                                        <label for="mobile"><h4>Gender</h4></label><br>
-                                        <input type="radio" name="gender" value="male"> Male         
-                                        <input type="radio" name="gender" value="female"> Female
+                                       <h4>Gender</h4><br>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="phone"><h4>Phone</h4></label>
+                                        <h4>Phone</h4>
                                         <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
                                     </div>
-                                </div><br>
 
-                                <div class="col-md-12" style="display: flex;">
 
                                     <div class="col-md-6">
-                                        <label for="email"><h4>Email</h4></label>
+                                        <h4>Email</h4>
                                         <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
                                     </div>
-                                </div>
 
                                 <div class="col-md-12 text-center">
                                     <br>
-                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Cập nhật</button>
                                 </div>
                             </form>
                         </div><!--/tab-pane-->
