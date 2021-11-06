@@ -47,6 +47,7 @@
                                         </c:if>
                                     </c:forEach>
 
+
                                     <c:if test="${count==0}">
                                         <div class="col-md-3 mt-1" id="image">
                                             <img src="img/0.jpg" alt=""/>
@@ -80,6 +81,21 @@
                                 </div>
                             </c:if>
                         </c:forEach>
+                        <br>
+                        <!--                    PAGING-->
+                        <nav aria-label="..." style="float: right;">
+                            <ul  class="pagination">
+                                <li class="page-item <c:if test="${pageindex eq 1}">disabled</c:if>">
+                                    <a class="page-link" href="resident?page=${pageindex-1}" tabindex="1">Previous</a>
+                                </li>
+                                <c:forEach var="x" begin="1" end="${totalpage}">
+                                    <li class="page-item <c:if test="${x eq pageindex}">active</c:if>"><a class="page-link" href="resident?page=${x}">${x}</a></li>
+                                    </c:forEach>
+                                <li class="page-item <c:if test="${pageindex eq totalpage}">disabled</c:if>">
+                                    <a class="page-link" href="resident?page=${pageindex+1}" tabindex="3">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                     <div class="col-md-4">
                         <form action="search">

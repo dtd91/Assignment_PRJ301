@@ -19,78 +19,43 @@ import model.Province;
  */
 public class HouseController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HouseController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HouseController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
+        }
+        int page = Integer.parseInt(raw_page);
         PostDBContext rd = new PostDBContext();
-        ArrayList<Post> posts = rd.getPosts();
-        request.setAttribute("posts", posts);
+        int pagesize = 8;
+        ArrayList<Post> posts = rd.getPosts(page, pagesize,3);
+
+        int count = rd.getCountByType(3);
+        int totalpage = (count % pagesize == 0) ? count / pagesize : (count / pagesize) + 1;
+
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("pageindex", page);
         
+        request.setAttribute("posts", posts);
+
         ArrayList<District> dists = rd.getDists();
         request.setAttribute("dists", dists);
-        
+
         ArrayList<Province> pros = rd.getPros();
         request.setAttribute("pros", pros);
-        
+
         ArrayList<Image> images = rd.getImg();
         request.setAttribute("images", images);
         request.getRequestDispatcher("view/post/house.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";

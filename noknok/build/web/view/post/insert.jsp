@@ -232,11 +232,7 @@
         <%@include file="footer.jsp" %>
         <script>
             function check(){
-                var c = confirm("Add Successfully! Wanna go to the pagehome?");
-                if (c)
-                {
-                    window.location.href = "home";
-                }
+                alert("Add Successfully!");
             }
         </script>
     </body>

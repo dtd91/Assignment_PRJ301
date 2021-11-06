@@ -40,7 +40,7 @@
     </head>
     <body>
         <%@include file="header.jsp" %>
-
+        <br><br>
         <div class="d-flex justify-content-center row">
             <div class="col-md-10 table-responsive" >
                 <!--KIEM TRA DA CO TIN DANG CHUA-->
@@ -106,15 +106,15 @@
                 </c:if>
             </div>
         </div>
-
+        <br><br>
         <%@include file="footer.jsp" %>
         <script>
             function doDelete(id)
             {
-                var c = confirm("are you sure?");
+                var c = confirm("Are you sure?");
                 if (c)
                 {
-                    window.location.href = "delete?id=" + id;
+                    window.location.href = "delete?id=" + id +"&address=mypost";
                 }
             }
         </script>

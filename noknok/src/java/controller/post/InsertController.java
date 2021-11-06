@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.District;
 import model.Post;
 import model.Province;
@@ -19,15 +20,7 @@ import model.Ward;
  */
 public class InsertController extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,14 +38,7 @@ public class InsertController extends HttpServlet {
         request.getRequestDispatcher("view/post/insert.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -89,9 +75,14 @@ public class InsertController extends HttpServlet {
         p.setDescription(description);
         PostDBContext pd = new PostDBContext();
         pd.insertPost(p);
+        
+        Account acc = (Account) request.getSession().getAttribute("account");
+        pd.insertPostAccount(acc.getUsername(), pd.getLastPostId());
 
         int lastPostId = pd.getLastPostId();
         pd.insertImg(lastPostId, "img/" + img);
+        
+        response.sendRedirect("mypost");
         
     }
 

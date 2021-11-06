@@ -59,8 +59,7 @@ public class PostDBContext extends DBContext {
     public ArrayList<Post> getPosts() {
         ArrayList<Post> posts = new ArrayList<>();
         try {
-            String sql = "select po.id,title,description,address,wardid,districtid,provinceid,area,price,\n"
-                    + "status,categoryid,po.contactname,po.contactphone,po.contactemail,po.contactaddress from Post po where status = 1";
+            String sql = "select * from Post where status = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -87,6 +86,77 @@ public class PostDBContext extends DBContext {
             Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public ArrayList<Post> getPosts(int pageindex, int pagesize, int caretogyid) {
+        ArrayList<Post> posts = new ArrayList<>();
+        try {
+            String sql = "select * from \n"
+                    + "(select ROW_NUMBER() OVER (ORDER BY id asc) as rownum,p.* from Post p where status = 1 ";
+            if (caretogyid !=0) {
+                sql +="and categoryid = "+caretogyid+") t where rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+            }else{
+                sql += ") t where rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pageindex);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Post r = new Post();
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setAddress(rs.getString("address"));
+                r.setWardId(rs.getInt("wardid"));
+                r.setDistrictId(rs.getInt("districtid"));
+                r.setProvinceId(rs.getInt("provinceid"));
+                r.setArea(rs.getFloat("area"));
+                r.setPrice(rs.getFloat("price"));
+                r.setStatus(rs.getBoolean("status"));
+                r.setCategoryId(rs.getInt("categoryid"));
+                r.setContactName(rs.getString("contactname"));
+                r.setContactPhone(rs.getInt("contactphone"));
+                r.setContactEmail(rs.getString("contactemail"));
+                r.setContactAddress(rs.getString("contactaddress"));
+                posts.add(r);
+            }
+            return posts;
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public int getCount() {
+        try {
+            String sql = "SELECT COUNT(*) as Total FROM Post where status = 1";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public int getCountByType(int categoryid) {
+        try {
+            String sql = "SELECT COUNT(*) as Total FROM Post where status =1 and categoryid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, categoryid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
     public ArrayList<Post> getPostsByUser(String username) {
@@ -200,6 +270,18 @@ public class PostDBContext extends DBContext {
         }
     }
 
+    public void insertPostAccount(String username, int postid) {
+        try {
+            String sql = "INSERT INTO [PostAccount]([username],[postid]) VALUES (?,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            stm.setInt(2, postid);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<District> getDists() {
         ArrayList<District> dists = new ArrayList<>();
         try {
@@ -274,6 +356,12 @@ public class PostDBContext extends DBContext {
 
     public void delete(int id) {
         try {
+            //Xóa từ bẳng postaccount trước
+            String sql1 = "DELETE FROM [PostAccount] WHERE postid = ?";
+            PreparedStatement stm1 = connection.prepareStatement(sql1);
+            stm1.setInt(1, id);
+            stm1.executeUpdate();
+
             String sql = "DELETE FROM Post WHERE id = ?\n";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);

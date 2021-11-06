@@ -23,7 +23,7 @@
         function doDelete(id){
             var c = confirm("Are you sure?");
             if (c){
-                window.location.href = "delete?id=" + id;
+                 window.location.href = "delete?id=" + id +"&address=list";
             }
         }
         function approved(id){

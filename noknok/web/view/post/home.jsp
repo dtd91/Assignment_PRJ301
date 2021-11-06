@@ -82,7 +82,24 @@
                                 <div class="d-flex flex-column mt-4"><button class="btn btn-outline-success" type="button" onclick="doDetail(${p.id});">Xem thông tin</button></div>
                             </div>
                         </div>
-                    </c:forEach>
+                    </c:forEach><br>
+                    <!--                    PAGING-->
+                    <nav aria-label="..." style="float: right;">
+                        <ul  class="pagination">
+                            <li class="page-item <c:if test="${pageindex eq 1}">disabled</c:if>">
+                                <a class="page-link" href="home?page=${pageindex-1}" tabindex="1">Previous</a>
+                            </li>
+                            <c:forEach var="x" begin="1" end="${totalpage}">
+                                <li class="page-item <c:if test="${x eq pageindex}">active</c:if>"><a class="page-link" href="home?page=${x}">${x}</a></li>
+                            </c:forEach>
+
+                            <!--<li class="page-item <c:if test="${pageindex eq 2}">active</c:if>"><a class="page-link" href="home?page=2">2</a></li>-->
+                            <!--<li class="page-item <c:if test="${pageindex eq 3}">active</c:if>"><a class="page-link" href="home?page=3">3</a></li>-->
+                            <li class="page-item <c:if test="${pageindex eq totalpage}">disabled</c:if>">
+                                <a class="page-link" href="home?page=${pageindex+1}" tabindex="3">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="col-md-4">
                     <div class="sidebar-box">

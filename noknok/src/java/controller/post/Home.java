@@ -22,25 +22,21 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PostDBContext rd = new PostDBContext();
-        ArrayList<Post> list = rd.getPosts();
-        ArrayList<Post> posts = new ArrayList<>();
-        
-        //Lấy 10 post cho trang Home -> Tạm thời phân trang đã
-        int count = 0;
-        for (Post post : list) {
-            posts.add(post);
-            count++;
-//            if (count == 10) {
-//                break;
-//            }
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
         }
-        
-        //Phân trang
-        
-        
-        
-        
+        int page = Integer.parseInt(raw_page);
+        PostDBContext rd = new PostDBContext();
+        int pagesize = 8;
+        ArrayList<Post> posts = rd.getPosts(page,pagesize,0);
+
+        int count = rd.getCount();
+        int totalpage = (count % pagesize == 0) ? count / pagesize : (count / pagesize) + 1;
+
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("pageindex", page);
+
         request.setAttribute("posts", posts);
 
         ArrayList<District> dists = rd.getDists();
