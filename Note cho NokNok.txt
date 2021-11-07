@@ -1,0 +1,36 @@
+Chức năng cho trang web:
++ đăng ký, đăng nhập tài khoản cho người dùng
++ phân chia quyền hạn cho các account (default: admin, normal)
++ thanh tim kiếm nhanh cho các trang
++ phân trang cho mỗi page (>8 tin thì cứ 8 tin 1 trang)
++ trang thông tin chi tiết bao gồm thông tin và nhúng gg map (nhập tay)
++ mỗi account xem được tin mình đăng, sửa hoặc xóa tin
++ admin chấp thuận tin được đăng bên ngoài
++ filter cho các trang yêu cầu phải đăng nhập
+
+
+toDoList:
++ tạo thanh bar header, footer (ok - sửa xong phần active cho url hiện tại)
++ kiểm tra user và mật khẩu, sai thì alert, đúng cho thực hiện function (done)
+
++ tạo trang đăng ký (ko được trùng username), password và confirm password giống nhau (done)
+
++ mỗi post phải đi cùng với account riêng (done)
++ Up ảnh cùng với post (mới được 1 ảnh cho 1 post)
++ nhúng gg map trong trang detail
+
++ xây dựng bộ khung cho trang home (done - link tin tức vẫn còn rỗng) 
++ Thêm nút quản lý cho admin để xem tin và approve (done)
+
++ sửa lại giao diện trang list (tạm ổn)
++ Format dạng float sang tiền (ok)
++ tìm ảnh nhà trọ cho post
+
++ lỗi tiếng việt khi insert vào database (gõ tiếng anh)
++ Phân trang chỉ cho các tin được approve, ko next tiếp được khi max totalpage (ok)
++ search bar riêng cho trang nhà trọ, căn hộ, tìm người ở ghép
++ sửa lại giao diện các trang (tạm được, chưa đẹp lắm)
++ dẫn đường link cho các post trong list (done)
++ bấm vào sửa tin, hiện box phụ chứa thông tin của tin đấy (ok)
+
++ nếu người dùng ko insert ảnh sẽ cho ảnh cố định (xong)

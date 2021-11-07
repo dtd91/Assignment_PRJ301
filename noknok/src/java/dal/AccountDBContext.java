@@ -68,7 +68,7 @@ public class AccountDBContext extends DBContext {
                     "           ,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
-            stm.setString(2, password);
+            stm.setString(2, password);     
             stm.setString(3, displayname);
             stm.executeUpdate();
         } catch (SQLException ex) {

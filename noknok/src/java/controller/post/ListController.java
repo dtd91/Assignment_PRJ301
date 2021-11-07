@@ -21,15 +21,6 @@ import model.Ward;
  */
 public class ListController extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,9 +42,6 @@ public class ListController extends HttpServlet {
 
         boolean t = Boolean.valueOf(request.getParameter("t"));
         request.setAttribute("t", t);
-
-        ArrayList<Image> images = pd.getImg();
-        request.setAttribute("images", images);
 
         request.getRequestDispatcher("view/post/list.jsp").forward(request, response);
     }

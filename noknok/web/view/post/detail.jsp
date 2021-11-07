@@ -26,7 +26,7 @@
                     <c:if test="${post.image[0].url eq null }">
                         <img src="img/0.jpg" width="500px" alt=""/>
                     </c:if>
-                    <img src="${post.image[1].url}" width="800px" alt=""/>
+                    <img src="${post.image[0].url}" width="800px" alt=""/>
                 </div>
                 <br>
                 <div class="col-md-9"><br>
@@ -52,7 +52,23 @@
                                     Chuyên mục:
                                 </div>
                                 <div id="DIV_9">
-                                    <a href="broadinghouse" style="font: bold; text-decoration: none;">
+                                    <a 
+                                       <c:choose>
+                                           <c:when test = "${post.categoryId eq 1}">
+                                               href="broadinghouse"
+                                           </c:when>
+                                           <c:when test = "${post.categoryId eq 2}">
+                                               href="apartment"
+                                           </c:when>
+                                           <c:when test = "${post.categoryId eq 3}">
+                                               href="house"
+                                           </c:when>
+                                           <c:when test = "${post.categoryId eq 4}">
+                                               href="resident"
+                                           </c:when>
+                                       </c:choose>
+
+                                       style="font: bold; text-decoration: none;">
                                         <c:forEach items="${category}" var="c">
                                             <c:if test="${post.categoryId eq c.categoryid}">
                                                 ${c.cname}

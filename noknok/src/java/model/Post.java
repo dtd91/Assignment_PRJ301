@@ -25,7 +25,7 @@ public class Post {
     private String contactEmail;
     private String contactAddress;
     private ArrayList<Image> image;
-
+    
     public ArrayList<Image> getImage() {
         return image;
     }

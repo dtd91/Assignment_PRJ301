@@ -20,15 +20,15 @@
         }
     </style>
     <script>
-        function doDelete(id){
+        function doDelete(id) {
             var c = confirm("Are you sure?");
-            if (c){
-                 window.location.href = "delete?id=" + id +"&address=list";
+            if (c) {
+                window.location.href = "delete?id=" + id + "&address=list";
             }
         }
-        function approved(id){
-                alert("Approved successfully!");
-                window.location.href = "approve?id=" + id;
+        function approved(id) {
+            alert("Approved successfully!");
+            window.location.href = "approve?id=" + id;
         }
 
     </script>
@@ -49,80 +49,6 @@
                 </div>
             </div>
         </div>
-
-<!--        <h1>Danh sách cho thuê nhà</h1>
-        <table border = "2">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Address</th>
-                    <th>Wardname</th>
-                    <th>Districtname</th>
-                    <th>Provincename</th>
-                    <th>Area</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Category</th>
-                                    <td>ContactName</td>
-                                    <td>ContactPhone</td>
-                                    <td>ContactEmail</td>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <c:forEach items="${requestScope.posts}" var="p">
-                <c:if test="${p.status eq t}">
-                    <tr>
-                        <td>${p.id}</td>    
-                        <td>${p.title}</td>
-                        <td>${p.address}</td>
-                        <td>
-                            <c:forEach items="${requestScope.wards}" var="w">
-                                <c:if test="${p.wardId eq w.id }">${w.name}</c:if>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <c:forEach items="${requestScope.dists}" var="d">
-                                <c:if test="${p.districtId eq d.id }">Quận ${d.name}</c:if>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <c:forEach items="${requestScope.pros}" var="pro">
-                                <c:if test="${p.provinceId eq pro.id}">TP. ${pro.name}</c:if>
-                            </c:forEach>
-                        </td>
-                        <td>${p.area}</td>
-                        <td>${p.price}</td>
-                        <td>${p.status}</td>
-                        <td>
-                            <c:forEach items="${requestScope.categories}" var="c">
-                                <c:if test="${p.categoryId eq c.categoryid }">${c.cname}</c:if>
-                            </c:forEach>
-                        </td>
-                        <td>${p.contactName}</td>
-                        <td>${p.contactPhone}</td>
-                        <td>${p.contactEmail}</td>
-                        <td>
-                            <c:if test="${p.status eq false}">
-                                Pending
-                            </c:if>
-                            <c:if test="${p.status eq true}">
-                                Approve
-                            </c:if>
-
-                        </td>
-                        <td>
-                            <input type="button" onclick="upLoad(${p.id});" value="Agree"/>
-                        </td>
-                        <td>
-                            <input type="button" onclick="doDelete(${p.id});" value="Delete"/>
-                        </td>
-                    </tr>
-                </c:if>
-            </c:forEach>
-        </table>-->
 
         <!--//////////////////////////////////-->
         <div class="d-flex justify-content-center row">
@@ -147,15 +73,17 @@
                             <c:if test="${p.status eq t}">
                                 <tr>
                                     <td>${p.id}</td>
-                                    <td><c:set var="count" value="0" scope="page" />
-                                        <c:forEach items="${images}" var="i">
-                                            <c:if test="${i.id eq p.id && count eq 0}">
-                                                <img class="img-responsive" src="${i.url}" />
-                                                <c:set var="count" value="1" scope="page" />
-                                            </c:if>
-                                        </c:forEach>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test = "${p.image[0].url ne null}">
+                                                <img class="img-responsive" src="${p.image[0].url}" />
+                                            </c:when>
+                                            <c:when test = "${p.image[0].url eq null}">
+                                                <img class="img-responsive" src="img/0.jpg" />
+                                            </c:when>
+                                        </c:choose>
                                     </td>
-                                    <td class="text-left"><a href="detail?id=${p.id}" style="text-decoration: none;color: black">${p.title}</a></td>
+                                    <td class="text-left" ><a href="detail?id=${p.id}" style="text-decoration: none;color: black"><span style="font-weight: 500">${p.title}</span></a></td>
                                     <td><c:forEach items="${dists}" var="d">
                                             <c:if test="${d.id eq p.districtId}">${d.name}</c:if>
                                         </c:forEach></td>
@@ -176,10 +104,10 @@
 
                                             <c:otherwise></c:otherwise>
                                         </c:choose></td>
-                                        
+
                                     <td class="text-right"><a href="#"><c:if test="${p.status eq false}"><button class="btn btn-sm btn-success" onclick="approved(${p.id})">Approved </button> </c:if></a></td>
-                                    
-                                    <td class="text-right"><a href="#"><button class="btn btn-sm btn-danger" onclick="doDelete(${p.id})">Xóa tin </button> </a></td>
+
+                                        <td class="text-right"><a href="#"><button class="btn btn-sm btn-danger" onclick="doDelete(${p.id})">Xóa tin </button> </a></td>
                                 </tr>
                             </c:if>
                         </c:forEach>

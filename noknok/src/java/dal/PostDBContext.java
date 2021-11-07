@@ -48,6 +48,7 @@ public class PostDBContext extends DBContext {
                 r.setContactPhone(rs.getInt("contactphone"));
                 r.setContactEmail(rs.getString("contactemail"));
                 r.setContactAddress(rs.getString("contactaddress"));
+                r.setImage(getImg(rs.getInt("id")));
                 posts.add(r);
             }
             return posts;
@@ -187,6 +188,7 @@ public class PostDBContext extends DBContext {
                 r.setContactPhone(rs.getInt("contactphone"));
                 r.setContactEmail(rs.getString("contactemail"));
                 r.setContactAddress(rs.getString("contactaddress"));
+                r.setImage(getImg(rs.getInt("id")));
                 posts.add(r);
             }
             return posts;
@@ -204,7 +206,7 @@ public class PostDBContext extends DBContext {
                     + "inner join ward w on w.wardid = po.wardid\n"
                     + "inner join district d on d.districtid = w.districtid\n"
                     + "inner join province p on p.provinceid = d.provinceid  \n"
-                    + "inner join Image i on i.postid = po.id\n"
+                    + "left join Image i on i.postid = po.id\n"
                     + "where po.id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
@@ -277,6 +279,44 @@ public class PostDBContext extends DBContext {
             stm.setInt(12, p.getContactPhone());
             stm.setString(13, p.getContactEmail());
             stm.setString(14, p.getContactAddress());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updatePost(Post p) {
+        try {
+            String sql = "UPDATE [Post]\n"
+                    + "   SET [title] = ?\n"
+                    + "      ,[description] = ?\n"
+                    + "      ,[categoryid] = ?\n"
+                    + "      ,[address] = ?\n"
+                    + "      ,[wardid] = ?\n"
+                    + "      ,[districtid] = ?\n"
+                    + "      ,[provinceid] = ?\n"
+                    + "      ,[area] = ?\n"
+                    + "      ,[price] = ?\n"
+                    + "      ,[contactname] = ?\n"
+                    + "      ,[contactphone] = ?\n"
+                    + "      ,[contactemail] = ?\n"
+                    + "      ,[contactaddress] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, p.getTitle());
+            stm.setString(2, p.getDescription());
+            stm.setInt(3, p.getCategoryId());
+            stm.setString(4, p.getAddress());
+            stm.setInt(5, p.getWardId());
+            stm.setInt(6, p.getDistrictId());
+            stm.setInt(7, p.getProvinceId());
+            stm.setFloat(8, p.getArea());
+            stm.setFloat(9, p.getPrice());
+            stm.setString(10, p.getContactName());
+            stm.setInt(11, p.getContactPhone());
+            stm.setString(12, p.getContactEmail());
+            stm.setString(13, p.getContactAddress());
+            stm.setInt(14, p.getId());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -375,6 +415,16 @@ public class PostDBContext extends DBContext {
             stm1.setInt(1, id);
             stm1.executeUpdate();
 
+            String sql2 = "DELETE FROM [Image] WHERE postid = ?";
+            PreparedStatement stm2 = connection.prepareStatement(sql2);
+            stm2.setInt(1, id);
+            stm2.executeUpdate();
+
+            String sql3 = "DELETE FROM [GoogleMap] WHERE pid = ?";
+            PreparedStatement stm3 = connection.prepareStatement(sql3);
+            stm3.setInt(1, id);
+            stm3.executeUpdate();
+
             String sql = "DELETE FROM Post WHERE id = ?\n";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
@@ -430,6 +480,20 @@ public class PostDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, postid);
             stm.setString(2, url);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateImg(int postid, String url) {
+        try {
+            String sql = "UPDATE [Image]\n"
+                    + "   SET [url] = ?\n"
+                    + " WHERE postid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, url);
+            stm.setInt(2, postid);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
